@@ -92,7 +92,10 @@ module HoboFields
 
 end
 
-require 'hobo_fields/extensions/active_record/attribute_methods'
+unless ActiveRecord::Base.respond_to?(:attribute)
+  require 'hobo_fields/extensions/active_record/attribute_methods'
+end
+
 require 'hobo_fields/extensions/active_record/fields_declaration'
 require 'hobo_fields/field_declaration_dsl'
 require 'hobo_fields/model'

@@ -180,6 +180,12 @@ module HoboFields
       declare_attr_type(name, type, options) unless HoboFields.plain_type?(type)
       field_specs[name] = HoboFields::Model::FieldSpec.new(self, name, type, options)
       attr_order << name unless name.in?(attr_order)
+
+      if respond_to?(:attribute)
+        unless HoboFields.plain_type?(type)
+          attribute(name, HoboFields::Model::RailsAttributeWrapper.new(field_specs[name]))
+        end
+      end
     end
 
 
